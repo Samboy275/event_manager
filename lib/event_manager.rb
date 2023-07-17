@@ -36,6 +36,12 @@ def legislators_by_zipcode(zipcode)
   end
 end
 
+def save_thank_you_letter(id, form_letter)
+  Dir.mkdir '../letters' unless Dir.exists? '../letters'
+  # outputting letter to a letters/letter
+  lettr_name = "../letters/thanks_#{id}.html"
+  File.open(lettr_name , 'w') {|file| file.write(form_letter)}
+end
 
 puts "event manager initilized"
 
@@ -49,19 +55,20 @@ attendee_list = CSV.open(
 )
 
 
-Dir.chdir '../letters'
+
+# reading the letter template file
+template_letter = File.read("../templates/letter_template.erb")
+erb_template = ERB.new template_letter
+
 attendee_list.each do |line|
   first_name = line[:first_name]
   zipcode = clean_zipcode(line[:zipcode])
   legislators = legislators_by_zipcode(zipcode)
 
-  # reading the letter template file
-  attendee_letter = ERB.new File.open('../templates/letter_template.erb').read
   # injecting data into the template letter
-  output = attendee_letter.result(binding)
+  form_letter = erb_template.result(binding)
   # getting id
   id = line[0]
-  # outputting letter to a letters/letter
-  lettr_name = "thanks_#{id}.html"
-  File.open(lettr_name , 'w') {|file| file.write(output)}
+
+  save_thank_you_letter(id, form_letter)
 end
