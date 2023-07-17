@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendees Phones</title>
+</head>
+<body>
+  <h1>Phone numbers of attendees</h1>
+  <table>
+    <th>Name</th><th>Phone Number</th>
+    <% attendees.each do |attendee| %>
+      <tr>
+        <td><%= "#{attendee[:name]}" %></td>
+        <td><%= "#{attendee[:phone]}" %></td>
+      </tr>
+    <% end %>
+  </table>
+</body>
+</html>
