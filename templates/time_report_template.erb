@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #14069457;
+            color: palegoldenrod;
+            flex-direction: column;
+        }
+        .tables-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .table-holder{
+            text-align: center;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Time and Day of Most Registers</h1>
+    <div class="tables-container">
+        <div class="table-holder">
+            <table>
+                <th>Hours Of Day</th>
+                <% hours.each do |hour| %>
+                    <tr>
+                        <td><%= "#{hour}"%></td>
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+        <div class="table-holder">
+            <table>
+                <th>Day of The Week</th>
+                <% days.each do |day| %>
+                    <tr>
+                        <td><%= "#{day}"%></td>
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
