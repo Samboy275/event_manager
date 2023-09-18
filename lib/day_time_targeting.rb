@@ -4,24 +4,39 @@ require 'time'
 
 def get_time_and_days()
   attendees = CSV.open("../event_attendees.csv", headers:true, header_converters: :symbol)
-  time_and_days = {:hours => {}, :days => {}}
-  attendees.each do |attendee|
+  times = attendees.map do |attendee|
     time = Time.strptime(attendee[:regdate], "%m/%d/%y %k:%M")
-    if time_and_days[:hours].key?(time.strftime('%k'))
-      time_and_days[:hours][time.strftime('%k')] += 1
-    else
-      time_and_days[:hours][time.strftime('%k')] = 1
-    end
-    if time_and_days[:days].key?(time.strftime('%A'))
-      time_and_days[:days][time.strftime('%A')] += 1
-    else
-      time_and_days[:days][time.strftime('%A')] = 1
-    end
+    time
   end
-  time_and_days
+  times
 end
 
+def format_hours(times)
 
-time_targets = get_time_and_days()
-puts time_targets[:hours].sort_by(&:last).reverse
-puts time_targets[:days].sort_by(&:last).reverse
+end
+
+def format_days(times)
+  days_hash = {}
+  times.each do |time|
+    day_name = time.strftime("%A")
+    if days_hash.key?(day_name)
+      days_hash[day_name] += 1
+    else
+      days_hash[day_name] = 1
+    end
+  end
+  days_hash
+end
+
+def output_to_template(hours, days)
+  template_file = File.read('../templates/time_report_template.erb')
+  erb_template = ERB.new template_file
+  output = erb_template.result(binding)
+  Dir.mkdir '../user_data' unless Dir.exists? '../user_data'
+  File.open('../user_data/time_report.html', 'w'){|file| file.write(output)}
+end
+
+times = get_time_and_days()
+
+puts format_days(times)
+
