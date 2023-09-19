@@ -58,8 +58,8 @@ def output_to_template(hours_ranges, days, individual_hours)
   template_file = File.read('../templates/time_report_template.erb')
   erb_template = ERB.new template_file
   output = erb_template.result(binding)
-  Dir.mkdir '../user_data' unless Dir.exists? '../user_data'
-  File.open('../user_data/time_report.html', 'w'){|file| file.write(output)}
+  Dir.mkdir '../reports' unless Dir.exists? '../reports'
+  File.open('../reports/time_report.html', 'w'){|file| file.write(output)}
 end
 
 times = get_time_and_days()

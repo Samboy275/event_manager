@@ -17,8 +17,8 @@ def save_sms_info(attendees)
   sms_template = File.read('../templates/sms_template.erb')
   sms_erb_temp = ERB.new sms_template
   output = sms_erb_temp.result(binding)
-  Dir.mkdir '../users_data' unless Dir.exists? "../users_data"
-  File.open('../users_data/phone_numbers.html', 'w'){|file| file.write(output)}
+  Dir.mkdir '../reports' unless Dir.exists? "../reports"
+  File.open('../reports/phone_numbers.html', 'w'){|file| file.write(output)}
 end
 
 
