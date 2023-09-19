@@ -23,7 +23,16 @@
         }
         .table-holder{
             text-align: center;
-            width: 80%;
+            width: 33%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        table{
+            width: 60%;
+        }
+        tbody{
+            height: 350px;
         }
     </style>
 </head>
@@ -32,20 +41,33 @@
     <div class="tables-container">
         <div class="table-holder">
             <table>
-                <th>Hours Of Day</th>
-                <% hours.each do |hour| %>
+                <th>Hours Of Day</th><th>number of registers</th>
+                <% hours_ranges.each do |hour, registers| %>
                     <tr>
                         <td><%= "#{hour}"%></td>
+                        <td><%= "#{registers}"%></td>
                     </tr>
                 <% end %>
             </table>
         </div>
         <div class="table-holder">
             <table>
-                <th>Day of The Week</th>
-                <% days.each do |day| %>
+                <th>individual hours</th><th>number of registers</th>
+                <% individual_hours.each do |hour, registers| %>
+                    <tr>
+                        <td><%= "#{hour}:00 to #{hour.to_i + 1}:00"%></td>
+                        <td><%= "#{registers}"%></td>
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+        <div class="table-holder">
+            <table>
+                <th>Day of The Week</th><th>number of registers</th>
+                <% days.each do |day, registers| %>
                     <tr>
                         <td><%= "#{day}"%></td>
+                        <td><%= "#{registers}"%></td>
                     </tr>
                 <% end %>
             </table>
